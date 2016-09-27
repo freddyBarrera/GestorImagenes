@@ -2,6 +2,13 @@
 
 @section('content')
 
+@if (Session::has('creado'))
+	<div class="alert alert-success">
+		<strong>Éxito!</strong><br><br>
+		<p>El álbum ha sido creado</p>
+	</div>
+@endif
+
 <div class="container">
 <p><a href="/validado/albumes/crear-album" class="btn btn-primary" role="button">Crear Album</a></p>
 
