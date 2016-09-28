@@ -2,8 +2,8 @@
 
 use Illuminate\Support\Facades\Auth;
 use GestorImagenes\Http\Requests\CrearAlbumRequest;
+use GestorImagenes\Http\Requests\ActualizarAlbumRequest;
 use GestorImagenes\Album;
-
 
 class AlbumController extends Controller {
 
@@ -59,17 +59,23 @@ class AlbumController extends Controller {
 	}
 
 
-	public function getActualizarAlbum()
+	public function getActualizarAlbum($id)
 	{
-		//return view('home');
-		return "Formulario de Actualizar Album";
+		$album = Album::find($id);
+
+		return view('albumes.actualizar-album', ['album' => $album]);
 	}
 
 
-	public function postActualizarAlbum()
+	public function postActualizarAlbum(ActualizarAlbumRequest $request)
 	{
-		//return view('home');
-		return "Actualizar Album";
+		$album = Album::find($request->get('id'));
+
+		$album->nombre = $request->get('nombre');
+		$album->descripcion = $request->get('descripcion');
+		$album->save();
+
+		return redirect('/validado/albumes')->with('actualizado', 'El álbum se actualizó');
 	}
 
 
